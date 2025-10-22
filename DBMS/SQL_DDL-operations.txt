@@ -1,0 +1,58 @@
+
+CREATE DATABASE college_db;
+SHOW DATABASES;
+
+USE college_db;
+
+CREATE TABLE student (
+    stud_id INT(5),
+    stud_name VARCHAR(30),
+    stud_age INT(3),
+    stud_gender VARCHAR(1),
+    stud_city VARCHAR(20)
+);
+
+DESC student;
+
+ALTER TABLE student ADD stud_dept VARCHAR(30);
+
+ALTER TABLE student MODIFY stud_city VARCHAR(50);
+
+ALTER TABLE student CHANGE stud_city city_name VARCHAR(50);
+
+ALTER TABLE student DROP COLUMN stud_age;
+
+DESC student;
+
+RENAME TABLE student TO student_details;
+
+SHOW TABLES;
+
+TRUNCATE TABLE student_details;
+
+
+CREATE TABLE department (
+    dept_id INT(5),
+    dept_name VARCHAR(30),
+    dept_hod VARCHAR(30)
+);
+
+CREATE TABLE faculty (
+    faculty_id INT(5) PRIMARY KEY,
+    faculty_name VARCHAR(30) NOT NULL,
+    faculty_dept VARCHAR(30),
+    faculty_salary DECIMAL(10,2) CHECK(faculty_salary > 20000)
+);
+
+CREATE TABLE student_record (
+    stud_id INT(5) PRIMARY KEY,
+    stud_name VARCHAR(30),
+    dept_id INT(5),
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id)
+);
+
+SHOW TABLES;
+
+DROP TABLE faculty;
+
+
