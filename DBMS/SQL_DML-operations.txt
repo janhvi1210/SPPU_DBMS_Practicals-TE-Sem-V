@@ -1,0 +1,78 @@
+
+CREATE DATABASE IF NOT EXISTS College;
+USE College;
+
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(30),
+    dept_hod VARCHAR(30)
+);
+
+CREATE TABLE student (
+    stud_id INT PRIMARY KEY,
+    stud_name VARCHAR(30),
+    stud_gender VARCHAR(1),
+    stud_age INT,
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id)
+);
+
+-- INSERT DATA INTO TABLES
+INSERT INTO department VALUES
+(101, 'Computer', 'Dr. Sharma'),
+(102, 'Mechanical', 'Dr. Patil'),
+(103, 'Civil', 'Dr. Nair'),
+(104, 'Electrical', 'Dr. Rao');
+
+INSERT INTO student VALUES
+(1, 'Aarav', 'M', 20, 101),
+(2, 'Janhvi', 'F', 21, 101),
+(3, 'Soham', 'M', 22, 102),
+(4, 'Priya', 'F', 20, 103),
+(5, 'Om', 'M', 23, 104);
+
+-- SELECT STATEMENTS 
+SELECT * FROM student;
+SELECT * FROM department;
+
+-- Displaying specific columns
+SELECT stud_name, stud_age FROM student;
+
+-- Applying WHERE condition
+SELECT * FROM student WHERE stud_gender = 'F';
+
+--UPDATE STATEMENTS
+
+UPDATE student SET stud_age = 21 WHERE stud_name = 'Aarav';
+
+UPDATE student SET dept_id = 103 WHERE stud_id = 2;
+
+-- Verifying updates
+SELECT * FROM student;
+
+--DELETE STATEMENTS
+DELETE FROM student WHERE stud_id = 5;
+
+DELETE FROM student WHERE dept_id = 104;
+
+-- View remaining records
+SELECT * FROM student;
+
+--ORDER BY, DISTINCT
+
+SELECT * FROM student ORDER BY stud_age ASC;
+
+SELECT DISTINCT dept_id FROM student;
+
+--AGGREGATE FUNCTIONS
+SELECT COUNT(*) AS Total_Students FROM student;
+SELECT AVG(stud_age) AS Avg_Age FROM student;
+SELECT MAX(stud_age) AS Oldest_Student FROM student;
+SELECT MIN(stud_age) AS Youngest_Student FROM student;
+
+
+
+
+
+
+
