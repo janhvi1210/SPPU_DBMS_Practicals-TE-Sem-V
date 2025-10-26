@@ -12,6 +12,7 @@ CREATE TABLE student (
     stud_city VARCHAR(20)
 );
 
+--Describe the table
 DESC student;
 
 ALTER TABLE student ADD stud_dept VARCHAR(30);
@@ -54,5 +55,6 @@ CREATE TABLE student_record (
 SHOW TABLES;
 
 DROP TABLE faculty;
+
 
 
