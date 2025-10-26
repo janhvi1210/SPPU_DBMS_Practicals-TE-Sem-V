@@ -22,7 +22,7 @@ CREATE TABLE customer_info (
 DESC products_tab;
 DESC customer_info;
 
-
+--Updating the table
 ALTER TABLE products_tab ADD PRIMARY KEY(product_id);
 
 ALTER TABLE customer_info ADD FOREIGN KEY(product_id) REFERENCES products_tab(product_id);
@@ -91,6 +91,7 @@ WHERE customer_info.product_id = products_tab.product_id;
 
 -- Select from view
 SELECT * FROM shop_view;
+
 
 
 
