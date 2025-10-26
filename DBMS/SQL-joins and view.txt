@@ -18,6 +18,7 @@ CREATE TABLE customer_info (
     phone VARCHAR(20)
 );
 
+--Describe the tables
 DESC products_tab;
 DESC customer_info;
 
@@ -90,5 +91,6 @@ WHERE customer_info.product_id = products_tab.product_id;
 
 -- Select from view
 SELECT * FROM shop_view;
+
 
 
