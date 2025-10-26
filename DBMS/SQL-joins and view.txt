@@ -1,0 +1,94 @@
+CREATE DATABASE shop;
+USE shop;
+
+-- Create first table: products_tab
+CREATE TABLE products_tab (
+    product_id INT(4),
+    customer_name VARCHAR(20),
+    quantity INT(4),
+    unit_price INT(10),
+    product_name VARCHAR(20)
+);
+
+-- Create second table: customer_info
+CREATE TABLE customer_info (
+    product_id INT(4),
+    customer_name VARCHAR(20),
+    city VARCHAR(20),
+    phone VARCHAR(20)
+);
+
+DESC products_tab;
+DESC customer_info;
+
+
+ALTER TABLE products_tab ADD PRIMARY KEY(product_id);
+
+ALTER TABLE customer_info ADD FOREIGN KEY(product_id) REFERENCES products_tab(product_id);
+
+-- Insert data into products_tab
+INSERT INTO products_tab VALUES (1, 'Alice', 3, 50, 'Bread');
+INSERT INTO products_tab VALUES (2, 'Bob', 2, 30, 'Butter');
+INSERT INTO products_tab VALUES (3, 'Charlie', 5, 10, 'Chips');
+INSERT INTO products_tab VALUES (4, 'David', 1, 100, 'Juice');
+
+SELECT * FROM products_tab;
+
+-- Add a new column total_cost to products_tab
+ALTER TABLE products_tab ADD total_cost INT(4);
+
+-- Update total_cost based on quantity * unit_price
+UPDATE products_tab SET total_cost = quantity * unit_price WHERE product_id = 1;
+UPDATE products_tab SET total_cost = quantity * unit_price WHERE product_id = 2;
+UPDATE products_tab SET total_cost = quantity * unit_price WHERE product_id = 3;
+UPDATE products_tab SET total_cost = quantity * unit_price WHERE product_id = 4;
+
+-- Select updated table
+SELECT * FROM products_tab;
+
+-- Insert data into customer_info
+INSERT INTO customer_info VALUES (1, 'Alice', 'Mumbai', '9876543210');
+INSERT INTO customer_info VALUES (2, 'Bob', 'Pune', '9123456780');
+INSERT INTO customer_info VALUES (3, 'Charlie', 'Delhi', '9988776655');
+INSERT INTO customer_info VALUES (4, 'David', 'Chennai', '8877665544');
+
+-- INNER JOIN
+SELECT 
+    products_tab.product_id, 
+    products_tab.customer_name, 
+    products_tab.product_name, 
+    customer_info.city 
+FROM products_tab 
+INNER JOIN customer_info ON products_tab.product_id = customer_info.product_id;
+
+-- LEFT OUTER JOIN
+SELECT 
+    products_tab.product_id, 
+    products_tab.customer_name, 
+    products_tab.product_name, 
+    customer_info.city 
+FROM products_tab 
+LEFT OUTER JOIN customer_info ON products_tab.product_id = customer_info.product_id;
+
+-- RIGHT OUTER JOIN
+SELECT 
+    products_tab.product_id, 
+    products_tab.customer_name, 
+    products_tab.product_name, 
+    customer_info.city 
+FROM products_tab 
+RIGHT OUTER JOIN customer_info ON products_tab.product_id = customer_info.product_id;
+
+-- Creating a view
+CREATE VIEW shop_view AS 
+SELECT 
+    products_tab.product_id, 
+    products_tab.customer_name, 
+    customer_info.city 
+FROM products_tab, customer_info 
+WHERE customer_info.product_id = products_tab.product_id;
+
+-- Select from view
+SELECT * FROM shop_view;
+
+
