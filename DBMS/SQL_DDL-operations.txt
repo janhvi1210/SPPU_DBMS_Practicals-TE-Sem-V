@@ -15,12 +15,10 @@ CREATE TABLE student (
 --Describe the table
 DESC student;
 
+--Updating the table 
 ALTER TABLE student ADD stud_dept VARCHAR(30);
-
 ALTER TABLE student MODIFY stud_city VARCHAR(50);
-
 ALTER TABLE student CHANGE stud_city city_name VARCHAR(50);
-
 ALTER TABLE student DROP COLUMN stud_age;
 
 DESC student;
@@ -55,6 +53,7 @@ CREATE TABLE student_record (
 SHOW TABLES;
 
 DROP TABLE faculty;
+
 
 
 
