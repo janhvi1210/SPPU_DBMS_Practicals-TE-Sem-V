@@ -1,6 +1,7 @@
 //Creating a collection
 db.createCollection("books")
 
+//Inserting one document
 db.books.insertOne({
     "bid": 1,
     "title": "DBMS",
@@ -51,5 +52,6 @@ db.books.countDocuments()
 
 print("Final Collection:")
 db.books.find().pretty()
+
 
 
