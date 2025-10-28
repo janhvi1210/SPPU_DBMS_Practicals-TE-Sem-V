@@ -38,6 +38,7 @@ db.books.find({"price": {$ne: 800}}).pretty()
 print("Books where price is NOT greater than 900:")
 db.books.find({"price": {$not: {$gt: 900}}}).pretty()
 
+//Updating documents
 db.books.updateOne({"title": "DBMS"}, {$set: {"price": 900}})
 db.books.updateOne({"price": 600}, {$set: {"author": "Silberschatz"}})
 db.books.updateOne({"bid": 5}, {$set: {"price": 1200}})
@@ -45,6 +46,7 @@ db.books.updateOne({"bid": 5}, {$set: {"price": 1200}})
 print("After Updating:")
 db.books.find().pretty()
 
+//Deleting or removing documents 
 db.books.deleteOne({"bid": 3})
 print("After Deleting Book with bid=3:")
 db.books.find().pretty()
@@ -54,6 +56,7 @@ db.books.countDocuments()
 
 print("Final Collection:")
 db.books.find().pretty()
+
 
 
 
