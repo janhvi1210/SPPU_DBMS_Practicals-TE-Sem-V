@@ -51,11 +51,14 @@ db.books.deleteOne({"bid": 3})
 print("After Deleting Book with bid=3:")
 db.books.find().pretty()
 
+//Counting Documents
 print("Total Books in Collection:")
 db.books.countDocuments()
 
+//Displaying the documents
 print("Final Collection:")
 db.books.find().pretty()
+
 
 
 
