@@ -9,6 +9,7 @@ db.books.insertOne({
     "price": 700
 })
 
+//Inserting Many Documents
 db.books.insertMany([
     {"bid": 2, "title": "Operating Systems", "author": "Galvin", "price": 600},
     {"bid": 3, "title": "Data Structures", "author": "Sahni", "price": 500},
@@ -52,6 +53,7 @@ db.books.countDocuments()
 
 print("Final Collection:")
 db.books.find().pretty()
+
 
 
 
