@@ -1,0 +1,54 @@
+
+db.createCollection("books")
+
+db.books.insertOne({
+    "bid": 1,
+    "title": "DBMS",
+    "author": "Korth",
+    "price": 700
+})
+
+db.books.insertMany([
+    {"bid": 2, "title": "Operating Systems", "author": "Galvin", "price": 600},
+    {"bid": 3, "title": "Data Structures", "author": "Sahni", "price": 500},
+    {"bid": 4, "title": "Computer Networks", "author": "Forouzan", "price": 800},
+    {"bid": 5, "title": "AI", "author": "Russell", "price": 1000}
+])
+
+print("📘 Documents Inserted Successfully!")
+
+print("All Books:")
+db.books.find().pretty()
+
+print("Books Sorted by ID:")
+db.books.find().sort({"bid": 1}).pretty()
+
+print("Books with price > 600:")
+db.books.find({"price": {$gt: 600}}).pretty()
+
+print("Books with price = 500 OR 800:")
+db.books.find({$or: [{"price": 500}, {"price": 800}]}).pretty()
+
+print("Books NOT priced at 800:")
+db.books.find({"price": {$ne: 800}}).pretty()
+
+print("Books where price is NOT greater than 900:")
+db.books.find({"price": {$not: {$gt: 900}}}).pretty()
+
+db.books.updateOne({"title": "DBMS"}, {$set: {"price": 900}})
+db.books.updateOne({"price": 600}, {$set: {"author": "Silberschatz"}})
+db.books.updateOne({"bid": 5}, {$set: {"price": 1200}})
+
+print("After Updating:")
+db.books.find().pretty()
+
+db.books.deleteOne({"bid": 3})
+print("After Deleting Book with bid=3:")
+db.books.find().pretty()
+
+print("Total Books in Collection:")
+db.books.countDocuments()
+
+print("Final Collection:")
+db.books.find().pretty()
+
