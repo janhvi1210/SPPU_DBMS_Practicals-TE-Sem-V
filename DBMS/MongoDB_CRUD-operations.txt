@@ -17,7 +17,7 @@ db.books.insertMany([
     {"bid": 5, "title": "AI", "author": "Russell", "price": 1000}
 ])
 
-print("📘 Documents Inserted Successfully!")
+print(" Documents Inserted Successfully!")
 
 //Reading documents
 print("All Books:")
@@ -58,6 +58,7 @@ db.books.countDocuments()
 //Displaying the documents
 print("Final Collection:")
 db.books.find().pretty()
+
 
 
 
