@@ -1,0 +1,76 @@
+CREATE TABLE Borrower (
+  roll_no INT,
+  issuer_name VARCHAR(255),
+  issue_date DATE,
+  book_name VARCHAR(255),
+  status VARCHAR(1),
+  PRIMARY KEY (roll_no)
+);
+
+CREATE TABLE Fine (
+  roll_no INT,
+  return_date DATE,
+  amt INT,
+  FOREIGN KEY (roll_no) REFERENCES Borrower (roll_no)
+);
+
+INSERT INTO Borrower VALUES (1, 'Jess', DATE '2024-10-19', 'DBMS', 'I');
+INSERT INTO Borrower VALUES (2, 'Joe', DATE '2024-10-01', 'TOC', 'I');
+INSERT INTO Borrower VALUES (3, 'Amma', DATE '2024-10-25', 'IoT', 'I');
+INSERT INTO Borrower VALUES (4, 'Khloe', DATE '2024-10-29', 'AI', 'I');
+
+COMMIT;
+
+--- PL/SQL PART: Fine calculation and update
+SET SERVEROUTPUT ON;
+
+DECLARE
+  p_roll      NUMBER := 2;          
+  p_book      VARCHAR2(255) := 'TOC';  
+  p_issueDate DATE;
+  totalDays   NUMBER;
+  fineAmt     NUMBER := 0;
+
+BEGIN
+  -- Try to fetch the issue date for the given student and book
+  SELECT issue_date 
+  INTO p_issueDate
+  FROM Borrower
+  WHERE roll_no = p_roll AND book_name = p_book;
+
+  -- Calculate total number of days since issue
+  totalDays := TRUNC(SYSDATE - p_issueDate);
+
+  -- Fine calculation logic
+  IF totalDays BETWEEN 15 AND 30 THEN
+    fineAmt := (totalDays - 14) * 5;                 
+  ELSIF totalDays > 30 THEN
+    fineAmt := (30 - 14) * 5 + (totalDays - 30) * 50; 
+  ELSE
+    fineAmt := 0;                                  
+  END IF;
+
+  -- Insert fine record if applicable
+  IF fineAmt > 0 THEN
+    INSERT INTO Fine (roll_no, return_date, amt)
+    VALUES (p_roll, SYSDATE, fineAmt);
+    DBMS_OUTPUT.PUT_LINE('Fine for Roll No ' || p_roll || ' is Rs.' || fineAmt);
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('No fine for Roll No ' || p_roll);
+  END IF;
+
+  -- Update Borrower table to mark book as returned
+  UPDATE Borrower
+  SET status = 'R'
+  WHERE roll_no = p_roll AND book_name = p_book;
+
+  COMMIT;
+  DBMS_OUTPUT.PUT_LINE('Book returned successfully.');
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('No such borrower or book found.');
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
