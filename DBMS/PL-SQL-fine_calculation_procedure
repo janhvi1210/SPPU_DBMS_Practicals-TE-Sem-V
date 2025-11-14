@@ -38,7 +38,7 @@ BEGIN
   FROM Borrower
   WHERE roll_no = p_roll AND book_name = p_book;
 
-  -- Calculate total number of days since issue
+  
   totalDays := TRUNC(SYSDATE - p_issueDate);
 
   -- Fine calculation logic
