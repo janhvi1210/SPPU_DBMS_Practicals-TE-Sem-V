@@ -1,3 +1,4 @@
+--SQL part: creating tables and inserting values
 CREATE TABLE Borrower (
   roll_no INT,
   issuer_name VARCHAR(255),
@@ -21,7 +22,7 @@ INSERT INTO Borrower VALUES (4, 'Khloe', DATE '2024-10-29', 'AI', 'I');
 
 COMMIT;
 
---- PL/SQL PART: Fine calculation and update
+--PL/SQL PART: Fine calculation and update
 SET SERVEROUTPUT ON;
 
 DECLARE
